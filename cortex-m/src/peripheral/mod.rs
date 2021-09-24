@@ -254,6 +254,7 @@ impl AC {
 }
 
 /// Cache and branch predictor maintenance operations
+#[allow(clippy::upper_case_acronyms)]
 pub struct CBP {
     _marker: PhantomData<*const ()>,
 }
@@ -291,6 +292,7 @@ impl ops::Deref for CBP {
 }
 
 /// CPUID
+#[allow(clippy::upper_case_acronyms)]
 pub struct CPUID {
     _marker: PhantomData<*const ()>,
 }
@@ -319,6 +321,7 @@ impl ops::Deref for CPUID {
 }
 
 /// Debug Control Block
+#[allow(clippy::upper_case_acronyms)]
 pub struct DCB {
     _marker: PhantomData<*const ()>,
 }
@@ -347,6 +350,7 @@ impl ops::Deref for DCB {
 }
 
 /// Data Watchpoint and Trace unit
+#[allow(clippy::upper_case_acronyms)]
 pub struct DWT {
     _marker: PhantomData<*const ()>,
 }
@@ -375,6 +379,7 @@ impl ops::Deref for DWT {
 }
 
 /// Flash Patch and Breakpoint unit
+#[allow(clippy::upper_case_acronyms)]
 pub struct FPB {
     _marker: PhantomData<*const ()>,
 }
@@ -405,6 +410,7 @@ impl ops::Deref for FPB {
 }
 
 /// Floating Point Unit
+#[allow(clippy::upper_case_acronyms)]
 pub struct FPU {
     _marker: PhantomData<*const ()>,
 }
@@ -440,6 +446,7 @@ impl ops::Deref for FPU {
 /// `actlr`. It's called the "implementation control block" in the ARMv8-M
 /// standard, but earlier standards contained the registers, just without a
 /// name.
+#[allow(clippy::upper_case_acronyms)]
 pub struct ICB {
     _marker: PhantomData<*const ()>,
 }
@@ -475,6 +482,7 @@ impl ops::DerefMut for ICB {
 }
 
 /// Instrumentation Trace Macrocell
+#[allow(clippy::upper_case_acronyms)]
 pub struct ITM {
     _marker: PhantomData<*const ()>,
 }
@@ -513,6 +521,7 @@ impl ops::DerefMut for ITM {
 }
 
 /// Memory Protection Unit
+#[allow(clippy::upper_case_acronyms)]
 pub struct MPU {
     _marker: PhantomData<*const ()>,
 }
@@ -541,6 +550,7 @@ impl ops::Deref for MPU {
 }
 
 /// Nested Vector Interrupt Controller
+#[allow(clippy::upper_case_acronyms)]
 pub struct NVIC {
     _marker: PhantomData<*const ()>,
 }
@@ -569,6 +579,7 @@ impl ops::Deref for NVIC {
 }
 
 /// Security Attribution Unit
+#[allow(clippy::upper_case_acronyms)]
 pub struct SAU {
     _marker: PhantomData<*const ()>,
 }
@@ -599,6 +610,7 @@ impl ops::Deref for SAU {
 }
 
 /// System Control Block
+#[allow(clippy::upper_case_acronyms)]
 pub struct SCB {
     _marker: PhantomData<*const ()>,
 }
@@ -627,6 +639,7 @@ impl ops::Deref for SCB {
 }
 
 /// SysTick: System Timer
+#[allow(clippy::upper_case_acronyms)]
 pub struct SYST {
     _marker: PhantomData<*const ()>,
 }
@@ -655,6 +668,7 @@ impl ops::Deref for SYST {
 }
 
 /// Trace Port Interface Unit
+#[allow(clippy::upper_case_acronyms)]
 pub struct TPIU {
     _marker: PhantomData<*const ()>,
 }
