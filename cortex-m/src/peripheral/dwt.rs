@@ -59,6 +59,11 @@ bitfield! {
     get_cyccntena, set_cyccntena: 0;
     get_pcsamplena, set_pcsamplena: 12;
     get_exctrcena, set_exctrcena: 16;
+    get_noprfcnt, _: 24;
+    get_nocyccnt, _: 25;
+    get_noexttrig, _: 26;
+    get_notrcpkt, _: 27;
+    u8, get_numcomp, _: 31, 28;
 }
 
 /// Comparator
@@ -98,41 +103,36 @@ impl DWT {
     ///
     /// A value of zero indicates no comparator support.
     #[inline]
-    pub fn num_comp() -> u8 {
-        // NOTE(unsafe) atomic read with no side effects
-        unsafe { ((*Self::PTR).ctrl.read() >> NUMCOMP_OFFSET) as u8 }
+    pub fn num_comp(&self) -> u8 {
+        self.ctrl.read().get_numcomp()
     }
 
     /// Returns `true` if the the implementation supports sampling and exception tracing
     #[cfg(not(armv6m))]
     #[inline]
-    pub fn has_exception_trace() -> bool {
-        // NOTE(unsafe) atomic read with no side effects
-        unsafe { (*Self::PTR).ctrl.read() & NOTRCPKT == 0 }
+    pub fn has_exception_trace(&self) -> bool {
+        self.ctrl.read().get_notrcpkt() == false
     }
 
     /// Returns `true` if the implementation includes external match signals
     #[cfg(not(armv6m))]
     #[inline]
-    pub fn has_external_match() -> bool {
-        // NOTE(unsafe) atomic read with no side effects
-        unsafe { (*Self::PTR).ctrl.read() & NOEXTTRIG == 0 }
+    pub fn has_external_match(&self) -> bool {
+        self.ctrl.read().get_noexttrig() == false
     }
 
     /// Returns `true` if the implementation supports a cycle counter
     #[cfg(not(armv6m))]
     #[inline]
-    pub fn has_cycle_counter() -> bool {
-        // NOTE(unsafe) atomic read with no side effects
-        unsafe { (*Self::PTR).ctrl.read() & NOCYCCNT == 0 }
+    pub fn has_cycle_counter(&self) -> bool {
+        self.ctrl.read().get_nocyccnt() == false
     }
 
     /// Returns `true` if the implementation the profiling counters
     #[cfg(not(armv6m))]
     #[inline]
-    pub fn has_profiling_counter() -> bool {
-        // NOTE(unsafe) atomic read with no side effects
-        unsafe { (*Self::PTR).ctrl.read() & NOPRFCNT == 0 }
+    pub fn has_profiling_counter(&self) -> bool {
+        self.ctrl.read().get_noprfcnt() == false
     }
 
     /// Enables the cycle counter
@@ -158,15 +158,19 @@ impl DWT {
     #[cfg(not(armv6m))]
     #[inline]
     pub fn disable_cycle_counter(&mut self) {
-        unsafe { self.ctrl.modify(|r| r & !CYCCNTENA) }
+        unsafe {
+            self.ctrl.modify(|mut r| {
+                r.set_cyccntena(false);
+                r
+            });
+        }
     }
 
     /// Returns `true` if the cycle counter is enabled
     #[cfg(not(armv6m))]
     #[inline]
-    pub fn cycle_counter_enabled() -> bool {
-        // NOTE(unsafe) atomic read with no side effects
-        unsafe { (*Self::PTR).ctrl.read() & CYCCNTENA != 0 }
+    pub fn cycle_counter_enabled(&self) -> bool {
+        self.ctrl.read().get_cyccntena()
     }
 
     /// Whether to enable exception tracing
