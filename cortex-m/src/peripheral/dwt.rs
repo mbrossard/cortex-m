@@ -324,7 +324,7 @@ impl DWT {
 }
 
 /// Whether the comparator should match on read, write or read/write operations.
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Eq, PartialEq, Copy, Clone)]
 pub enum AccessType {
     /// Generate packet only when matched adress is read from.
     ReadOnly,
@@ -335,7 +335,7 @@ pub enum AccessType {
 }
 
 /// The sequence of packet(s) that should be emitted on comparator match.
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Eq, PartialEq, Copy, Clone)]
 pub enum EmitOption {
     /// Emit only trace data value packet.
     Data,
@@ -352,7 +352,7 @@ pub enum EmitOption {
 }
 
 /// Settings for address matching
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq, Copy, Clone)]
 pub struct ComparatorAddressSettings {
     /// The address to match against.
     pub address: u32,
@@ -365,7 +365,7 @@ pub struct ComparatorAddressSettings {
 }
 
 /// The available functions of a DWT comparator.
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq, Copy, Clone)]
 #[non_exhaustive]
 pub enum ComparatorFunction {
     /// Compare accessed memory addresses.
@@ -373,7 +373,7 @@ pub enum ComparatorFunction {
 }
 
 /// Possible error values returned on [Comparator::configure].
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq, Copy, Clone)]
 #[non_exhaustive]
 pub enum DwtError {
     /// Invalid combination of [AccessType] and [EmitOption].
