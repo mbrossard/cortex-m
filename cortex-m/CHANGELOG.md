@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- DWT: add `configure` API for address, cycle count comparison (#342, #367).
+- ITM: add `configure` API (#342).
+- TPIU: add API for *Formatter and Flush Control* (FFCR) and *Selected Pin Control* (SPPR) registers (#342).
+- TPIU: add `swo_supports` for checking what SWO configurations the target supports. (#381)
+- Add `std` and `serde` crate features for improved host-side ITM decode functionality when working with the downstream `itm`, `cargo-rtic-scope` crates (#363, #366).
 - Added `set_sevonpend` and `clear_sevonpend` (#539).
 
 ## [v0.7.7] - 2023-01-03
