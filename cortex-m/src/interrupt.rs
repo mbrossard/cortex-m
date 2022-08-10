@@ -32,36 +32,41 @@ unsafe impl<T: Nr + Copy> InterruptNumber for T {
     }
 }
 
-/// Disables all interrupts
+/// Disables all interrupts in the current core.
 #[inline]
 pub fn disable() {
     call_asm!(__cpsid());
 }
 
-/// Enables all the interrupts
+/// Enables all the interrupts in the current core.
 ///
 /// # Safety
 ///
-/// - Do not call this function inside an `interrupt::free` critical section
+/// - Do not call this function inside a critical section.
 #[inline]
 pub unsafe fn enable() {
     call_asm!(__cpsie());
 }
 
-/// Execute closure `f` in an interrupt-free context.
+/// Execute closure `f` with interrupts disabled in the current core.
 ///
-/// This as also known as a "critical section".
+/// This method does not synchronize multiple cores and may disable required
+/// interrupts on some platforms; see the `critical-section` crate for a cross-platform
+/// way to enter a critical section which provides a `CriticalSection` token.
+///
+/// This crate provides an implementation for `critical-section` suitable for single-core systems,
+/// based on disabling all interrupts. It can be enabled with the `critical-section-single-core` feature.
 #[inline]
 pub fn free<F, R>(f: F) -> R
 where
-    F: FnOnce(&CriticalSection) -> R,
+    F: FnOnce() -> R,
 {
     let primask = crate::register::primask::read();
 
     // disable interrupts
     disable();
 
-    let r = f(unsafe { &CriticalSection::new() });
+    let r = f();
 
     // If the interrupts were active before our `disable` call, then re-enable
     // them. Otherwise, keep them disabled

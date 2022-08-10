@@ -23,3 +23,5 @@ mod single_core_critical_section {
         }
     }
 }
+
+pub use critical_section::with;

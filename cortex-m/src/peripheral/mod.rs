@@ -165,7 +165,7 @@ impl Peripherals {
     /// Returns all the core peripherals *once*
     #[inline]
     pub fn take() -> Option<Self> {
-        interrupt::free(|_| {
+        critical_section::with(|_| {
             if unsafe { TAKEN } {
                 None
             } else {

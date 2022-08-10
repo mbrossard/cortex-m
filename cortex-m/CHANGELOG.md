@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Added `set_sevonpend` and `clear_sevonpend` (#539).
+- Added `critical-section-single-core` feature which provides an implementation for the `critical_section` crate for single-core systems, based on disabling all interrupts. (#447)
 
 ## [v0.7.7] - 2023-01-03
 
