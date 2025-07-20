@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-- MSRV is 1.61 to match cortex-m-rt crate
+## Changed
+
+- Bumped MSRV to 1.61 for compatibility with syn versions >=2.0.68 and to match cortex-m-rt crate
+
+### Added
+
+- Added `set_sevonpend` and `clear_sevonpend` (#539).
 
 ## [v0.7.7] - 2023-01-03
 

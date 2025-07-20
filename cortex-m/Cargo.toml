@@ -20,7 +20,7 @@ rust-version = "1.61"
 bare-metal = { version = "0.2.4", features = ["const-fn"] }
 critical-section = { version = "1.0.0", optional = true }
 volatile-register = "0.2.2"
-bitfield = "0.13.2"
+bitfield = "0.15.0"
 embedded-hal = "0.2.4"
 
 [dependencies.serde]
